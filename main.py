@@ -270,8 +270,8 @@ class GameLoop:
                             map_size=GAME_MAP_SIZE,
                             entry_type=PREFERRED_GAME_TYPE
                         )
-                        logger.info(f"Created game: {game['id']}")
-                        continue
+logger.info(f"Created game: {game.get('id', 'unknown')}")
+continue
                     except APIError as e:
                         if e.code == "WAITING_GAME_EXISTS":
                             logger.warning("Waiting game already exists, re-scanning")
