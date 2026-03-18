@@ -262,7 +262,7 @@ class GameLoop:
                         logger.error(f"Registration failed: {e}")
                         continue
             elif AUTO_CREATE_GAME:
-                if random.random() < 0.05:
+                if random.random() < 0.02:
                     logger.info("No waiting game found — creating one")
                     try:
                         game = self.api.create_game(
@@ -270,8 +270,8 @@ class GameLoop:
                             map_size=GAME_MAP_SIZE,
                             entry_type=PREFERRED_GAME_TYPE
                         )
-logger.info(f"Created game: {game.get('id', 'unknown')}")
-continue
+                        logger.info(f"Created game: {game.get('id', 'unknown')}")
+                        continue
                     except APIError as e:
                         if e.code == "WAITING_GAME_EXISTS":
                             logger.warning("Waiting game already exists, re-scanning")
@@ -691,6 +691,6 @@ if __name__ == "__main__":
             threads.append(t)
         for t in threads:
             t.start()
-            time.sleep(5)
+            time.sleep(2)
         for t in threads:
             t.join()
